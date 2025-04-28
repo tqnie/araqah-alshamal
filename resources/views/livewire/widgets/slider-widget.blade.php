@@ -12,7 +12,7 @@ new class extends Component
                 'title' => $slide->title,
                 'body' => $slide->body,
                 'url' => $slide->url, 
-                'image' => $slide->pathImage->url(),
+                'image' =>$slide->pathImage? $slide->pathImage->url():null,
             ];
         });
     }

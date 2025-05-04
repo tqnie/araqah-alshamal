@@ -35,7 +35,7 @@ new #[Layout('layouts.app')] class extends Component
         'type',
         'active']);
         
-        $buildingPlan = BuildingPlan::find($id);
+      
         $this->buildings = [];
         foreach($buildingPlan->buildings as $item){ 
             $this->buildings[]=  [

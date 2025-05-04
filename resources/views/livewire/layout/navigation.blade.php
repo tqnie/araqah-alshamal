@@ -35,7 +35,7 @@ new class extends Component
                     <button id="nav-trigger" class="nav-trigger ">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <div class="logo"><a href="{{route('home')}}" wire:navigate title="عراقة الشمال"><img src="{{asset('assets/images/logo.png')}}" alt="عراقة الشمال" title="عراقة الشمال"></a></div>
+                    <div class="logo"><a class="wow fadeInRightBig" href="{{route('home')}}" wire:navigate title="عراقة الشمال"><img src="{{asset('assets/images/logo.png')}}" alt="عراقة الشمال" title="عراقة الشمال"></a></div>
                 </div>
                 <div class="col-md-10 col-sm-8 d-none d-sm-block">
                     <div class="head-links">

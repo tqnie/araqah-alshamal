@@ -6,7 +6,7 @@
     </x-slot> --}}
 
 <livewire:widgets.slider-widget />
-  
+   
 <section class="search-home">
     <div class="container">
         <div class="sec-title">
@@ -27,7 +27,8 @@
 <livewire:widgets.projects-widget />
 <livewire:widgets.blogs-widget />
 
-  
+
+
 <section class="video-home">
     <div class="container">
         <div class="video-title">

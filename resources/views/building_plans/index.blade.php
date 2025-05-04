@@ -347,12 +347,16 @@
                 angle: activeObject.angle
             }
         };
-        // إضافة المبنى إلى القائمة
-        
+         
+        window.axios.post('{{route("building.store",$buildingPlan->id)}}',building).then(response => {
+            buildings.push(building);
+            alert(response);
+        }).catch(error => {
+                    callback(true, error);
+                });
 
 
-
-        buildings.push(building);
+       
        // updateBuildingsList();
         this.reset();
     });

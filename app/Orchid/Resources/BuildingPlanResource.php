@@ -93,7 +93,7 @@ class BuildingPlanResource extends Resource
                 }),
             TD::make('image', 'الصورة')
                 ->render(function ($model) {
-                    return '<img src="' . $model->image . '" alt="' . $model->name . '" style=" height: 100px;" />';
+                    return '<a href="'.route('building_plan.index',$model->id).'"><img src="' . $model->image . '" alt="' . $model->name . '" style=" height: 100px;" /></a>';
                 }),
 
             TD::make('type', 'النوع')
@@ -117,6 +117,7 @@ class BuildingPlanResource extends Resource
                 ->render(function ($model) {
                     return $model->updated_at->toDateTimeString();
                 }),
+               
         ];
     }
 
@@ -140,6 +141,13 @@ class BuildingPlanResource extends Resource
             Sight::make('active', 'حالة المخطط'),
             Sight::make('created_at', 'تاريخ الانشاء'),
             Sight::make('updated_at', 'تاريخ التحديث'),
+        ];
+    }
+    public function actions(): array
+    {
+        return [
+
+            
         ];
     }
 

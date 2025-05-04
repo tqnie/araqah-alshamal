@@ -351,6 +351,7 @@
         window.axios.post('{{route("building.store",$buildingPlan->id)}}',building).then(response => {
             buildings.push(building);
             alert(response);
+            this.reset();
         }).catch(error => {
                     callback(true, error);
                 });
@@ -358,7 +359,7 @@
 
        
        // updateBuildingsList();
-        this.reset();
+    
     });
 
     function updateBuildingsList() {

@@ -241,7 +241,7 @@
             lastPosY = e.e.clientY;
         }
     });
-
+//^s%s![3;3(10
     canvas.on('mouse:move', function(e) {
         if (isDragging && currentTool === 'select') {
             const deltaX = e.e.clientX - lastPosX;

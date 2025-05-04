@@ -16,7 +16,7 @@ class BuildingPlansController extends Controller
     {
         $buildingPlan = BuildingPlan::find($id);
         $buildings = [];
-        $buildingPlan->buildings->each(function($item)use($buildings){
+        foreach($buildingPlan->buildings as $item){
             $buildings[]=  [
                 'id'=> $item->id,
                 'name'=> $item->building_bloc,
@@ -36,7 +36,7 @@ class BuildingPlansController extends Controller
                     'angle'=>$item->angle
                 ]
                 ];
-        });
+        };
         return view('building_plans.index', [
             'buildingPlan' => $buildingPlan,
             'buildings'=>$buildings,

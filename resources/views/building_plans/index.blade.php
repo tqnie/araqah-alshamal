@@ -153,20 +153,8 @@
         selection: true
     });
 
-    // البيانات الأولية للمباني
-    const buildings = [{
-        "id": 7,
-        "name": "161",
-        "type": "مباعة",
-        "description": "1",
-        "space": "1",
-        "coordinates": {
-            "left": 2879.98,
-            "top": 562.86,
-            "width": 124.98,
-            "height": 78.25
-        }
-    }];
+   
+    const buildings =@json($buildingPlan->buildings);
 
     // إضافة المباني إلى الـCanvas
     buildings.forEach(building => {
@@ -327,6 +315,8 @@
     //     'width',
     //     'height',
     //     'active'
+
+     
         const building = {
             id: buildings.length + 1,
             name: document.getElementById('building_bloc').value,
@@ -350,8 +340,8 @@
          
         window.axios.post('{{route("building.store",$buildingPlan->id)}}',building).then(response => {
             buildings.push(building);
-            alert(response);
-            this.reset();
+            alert(response.data);
+          //  this.reset();
         }).catch(error => {
                     callback(true, error);
                 });

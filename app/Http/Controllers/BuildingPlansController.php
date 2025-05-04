@@ -15,6 +15,28 @@ class BuildingPlansController extends Controller
     public function index(Request $request, $id)
     {
         $buildingPlan = BuildingPlan::find($id);
+
+        $buildingPlan->buildings->each(function($item){
+            return  [
+                'id'=> $item->id,
+                'name'=> $item->building_bloc,
+                'sale'=> $item->building_sale,
+                'building_number'=> $item->building_number,
+                'area'=> $item->building_area,
+                'street_view'=> $item->street_view,
+                'direction'=> $item->building_direction,
+                'type'=> $item->building_type,
+                'price'=> $item->building_price,
+                'building_plan_id'=> $item->building_plan_id, 
+                'coordinates'=> [
+                    'left'=>$item->x,
+                    'top'=>$item->y,
+                    'width'=>$item->width ,
+                    'height'=>$item->height ,
+                    'angle'=>$item->angle
+                ]
+                ];
+        });
         return view('building_plans.index', [
             'buildingPlan' => $buildingPlan,
         ]);

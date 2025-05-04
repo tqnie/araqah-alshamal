@@ -35,10 +35,10 @@ class BuildingPlansController extends Controller
             'street_view'=>$request->street_view,
             'direction'=>$request->direction,
             'type'=>$request->type,
-            'x'=>$request->coordinates->left,
-            'y'=>$request->coordinates->top,
-            'width'=>$request->coordinates->width,
-            'height'=>$request->coordinates->height,
+            'x'=>$request->coordinates['left'],
+            'y'=>$request->coordinates['top'],
+            'width'=>$request->coordinates['width'],
+            'height'=>$request->coordinates['height'],
             'active'=>1
         ]);
         return 'success building add';

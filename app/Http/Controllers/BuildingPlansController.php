@@ -21,7 +21,7 @@ class BuildingPlansController extends Controller
 
     public function buildingStore(Request $request, $id) {
         $request->validate([
-            'building_plan_id' => 'required|string',
+            'building_plan_id' => 'required|int',
             'price' => 'required|string',
             'sale' => 'required|string',
         ]);

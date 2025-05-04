@@ -15,9 +15,9 @@ class BuildingPlansController extends Controller
     public function index(Request $request, $id)
     {
         $buildingPlan = BuildingPlan::find($id);
-
-        $buildingPlan->buildings->each(function($item){
-            return  [
+        $buildings = [];
+        $buildingPlan->buildings->each(function($item)use($buildings){
+            $buildings[]=  [
                 'id'=> $item->id,
                 'name'=> $item->building_bloc,
                 'sale'=> $item->building_sale,
@@ -39,6 +39,7 @@ class BuildingPlansController extends Controller
         });
         return view('building_plans.index', [
             'buildingPlan' => $buildingPlan,
+            'buildings'=>$buildings,
         ]);
     }
 

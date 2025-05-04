@@ -154,7 +154,7 @@
     });
 
    
-    const buildings =@json($buildingPlan->buildings);
+    const buildings =@json($buildings);
 
     // إضافة المباني إلى الـCanvas
     buildings.forEach(building => {

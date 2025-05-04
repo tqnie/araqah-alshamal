@@ -35,6 +35,30 @@ new #[Layout('layouts.app')] class extends Component
         'type',
         'active']);
         
+        $buildingPlan = BuildingPlan::find($id);
+        $this->buildings = [];
+        foreach($buildingPlan->buildings as $item){ 
+            $this->buildings[]=  [
+                'id'=> $item->id,
+                'name'=> $item->id,
+                'sale'=> $item->sale,
+                'building_number'=> $item->building_number,
+                'area'=> $item->area,
+                'street_view'=> $item->street_view,
+                'direction'=> $item->direction,
+                'type'=> $item->type,
+                'price'=> $item->price,
+                'building_plan_id'=> $item->building_plan_id, 
+                'coordinates'=> [
+                    'left'=>$item->x,
+                    'top'=>$item->y,
+                    'width'=>$item->width ,
+                    'height'=>$item->height ,
+                    'angle'=>$item->angle
+                ]
+                ];
+        };
+
          // $this->buildings =$project->buildings;
      
     }
@@ -169,181 +193,7 @@ new #[Layout('layouts.app')] class extends Component
     <script>
         
 
-        const buildings = [
-            {
-                "id": 1,
-                "name": "575",
-                "type": "مباعة",
-                "price": "567",
-                "space": "567",
-                "status": "مباعة",
-                "coordinates": {
-                "left": 695.3420440256541,
-                "top": 541.0460912206976,
-                "width": 260.551882417882,
-                "height": 128.40311097504127,
-                "angle": 348.28292635449
-                }
-            },
-            {
-                "id": 2,
-                "name": "9",
-                "type": "مباعة",
-                "price": "600",
-                "space": "6",
-                "status": "مباعة",
-                "coordinates": {
-                "left": 712.7454925370159,
-                "top": 674.0434639244958,
-                "width": 269.88323121106464,
-                "height": 128.40311097504127,
-                "angle": 348.28292635449
-                }
-            },
-                    {
-                "id": 1,
-                "name": "20",
-                "type": "مباعة",
-                "description": "250",
-                "space": "25",
-                "coordinates": {
-                "left": 1490.0060159999996,
-                "top": 319.5002879999999,
-                "width": 74.64959999999996,
-                "height": 125.41132800000003
-                }
-            },
-            {
-                "id": 2,
-                "name": "22",
-                "type": "غير مباعة",
-                "description": "0",
-                "space": "0",
-                "coordinates": {
-                "left": 1567.6415999999995,
-                "top": 319.5002879999999,
-                "width": 74.64959999999996,
-                "height": 125.41132800000003
-                }
-            },
-            {
-                "id": 3,
-                "name": "34",
-                "type": "غير مباعة",
-                "description": "2",
-                "space": "2",
-                "coordinates": {
-                "left": 1645.2771839999994,
-                "top": 319.5002879999999,
-                "width": 74.64959999999996,
-                "height": 125.41132800000003
-                }
-            },
-            {
-                "id": 4,
-                "name": "36",
-                "type": "غير مباعة",
-                "description": "23",
-                "space": "23",
-                "coordinates": {
-                "left": 1722.9127679999995,
-                "top": 319.5002879999999,
-                "width": 74.64959999999996,
-                "height": 125.41132800000003
-                }
-                },
-                {
-                "id": 1,
-                "name": "154",
-                "type": "مباعة",
-                "description": "5",
-                "space": "5",
-                "coordinates": {
-                "left": 2744.1192959999994,
-                "top": 316.5143039999999,
-                "width": 134.3692799999999,
-                "height": 89.57952
-                }
-            },
-            {
-                "id": 2,
-                "name": "155",
-                "type": "مباعة",
-                "description": "2",
-                "space": "2",
-                "coordinates": {
-                "left": 2872.5166079999995,
-                "top": 319.5002879999999,
-                "width": 134.3692799999999,
-                "height": 89.57952
-                }
-            },
-            {
-                "id": 3,
-                "name": "152",
-                "type": "مباعة",
-                "description": "15",
-                "space": "2",
-                "coordinates": {
-                "left": 2884.460543999999,
-                "top": 406.0938239999999,
-                "width": 119.54965031106643,
-                "height": 80.72046399768244
-                }
-            },
-            {
-                "id": 4,
-                "name": "156",
-                "type": "غير مباعة",
-                "description": "1",
-                "space": "1",
-                "coordinates": {
-                "left": 2753.0772479999996,
-                "top": 406.0938239999999,
-                "width": 124.97887704334187,
-                "height": 78.25499468713807
-                }
-            },
-            {
-                "id": 5,
-                "name": "158",
-                "type": "غير مباعة",
-                "description": "1",
-                "space": "1",
-                "coordinates": {
-                "left": 2748.1006079999997,
-                "top": 488.2083839999999,
-                "width": 124.97887704334187,
-                "height": 78.25499468713807
-                }
-            },
-            {
-                "id": 6,
-                "name": "159",
-                "type": "مباعة",
-                "description": "1",
-                "space": "1",
-                "coordinates": {
-                "left": 2879.9815679999997,
-                "top": 485.720064,
-                "width": 124.97887704334187,
-                "height": 78.25499468713807
-                }
-            },
-            {
-                "id": 7,
-                "name": "161",
-                "type": "مباعة",
-                "description": "1",
-                "space": "1",
-                "coordinates": {
-                "left": 2879.9815679999997,
-                "top": 562.857984,
-                "width": 124.97887704334187,
-                "height": 78.25499468713807
-                }
-            }
-        ];
+        const buildings =  @json($buildings);
         const canvas = new fabric.Canvas('mapCanvas', {
         selection: false // منع تحديد العناصر العشوائي
     });

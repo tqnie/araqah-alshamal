@@ -16,17 +16,17 @@ class BuildingPlansController extends Controller
     {
         $buildingPlan = BuildingPlan::find($id);
         $buildings = [];
-        foreach($buildingPlan->buildings as $item){
+        foreach($buildingPlan->buildings as $item){ 
             $buildings[]=  [
                 'id'=> $item->id,
-                'name'=> $item->building_bloc,
-                'sale'=> $item->building_sale,
+                'name'=> $item->id,
+                'sale'=> $item->sale,
                 'building_number'=> $item->building_number,
-                'area'=> $item->building_area,
+                'area'=> $item->area,
                 'street_view'=> $item->street_view,
-                'direction'=> $item->building_direction,
-                'type'=> $item->building_type,
-                'price'=> $item->building_price,
+                'direction'=> $item->direction,
+                'type'=> $item->type,
+                'price'=> $item->price,
                 'building_plan_id'=> $item->building_plan_id, 
                 'coordinates'=> [
                     'left'=>$item->x,

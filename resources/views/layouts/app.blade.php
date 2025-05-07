@@ -111,15 +111,17 @@
                     <div class="col-12 col-md-3 col-lg-2">
                         <h3>روابط سريعة</h3>
                         <div class="links">
+
+                        
                             <ul>
-                                <li><a href="index.html">الرئيسية</a></li>
-                                <li><a href="about_us.html">من نحن</a></li>
-                                <li><a href="blogs.html">المقالات</a></li>
+                                <li><a href="{{route('home')}}">الرئيسية</a></li>
+                                <li><a href="{{route('page.show','about-us')}}">من نحن</a></li>
+                                <li><a href="{{route('blogs.index')}}">المقالات</a></li>
                             </ul>
                             <ul>
-                                <li><a href="commission.html">عمولة الموقع</a></li>
-                                <li><a href="terms.html">الشروط والأحكام</a></li>
-                                <li><a href="contact_us.html">تواصل معنا</a></li>
+                                <li><a href="{{route('page.show','commission')}}">عمولة الموقع</a></li>
+                                <li><a href="{{route('page.show','terms')}}">الشروط والأحكام</a></li>
+                                <li><a href="{{route('page.contact-us')}}">تواصل معنا</a></li>
                             </ul>
                         </div>
                     </div>

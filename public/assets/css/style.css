@@ -118,7 +118,7 @@ img {max-width: 100%;}
 #header-scroll .header-content .head-links .nav-item a.dropdown-toggle {color: #9E8648;}
 .transparent-header #header-scroll .header-content .head-links .nav-item a.dropdown-toggle {color: #EBD59F;}
 #header-scroll.h-fixed .header-content .head-links .nav-item a.dropdown-toggle {color: #9E8648;}
-.transparent-header #header-scroll .header-content .head-links .nav-item a {color: #fff}
+.transparent-header #header-scroll .header-content .head-links .nav-item a {color: #FFFFFF}
 #header-scroll .header-content .head-links .nav-item a:hover {color: #EBD59F !important;}
 #header-scroll .header-content .head-links .nav-item a.active {color: #EBD59F !important;}
 #header-scroll .header-content .head-links .btns-head {
@@ -577,6 +577,7 @@ footer .copyright p {margin: 0px; font-size: 14px; color: #6E6E6E;}
 	.d-flex {display: block;}
 	#header-scroll .header-content .nav-trigger {display: block;}
 	#header-scroll .header-content #main_menu {display: block;}
+	.transparent-header .active + #header-scroll {background: #FFFFFF;}
 	#header-scroll .header-content .logo a {max-width: 200px;}
 	.first-slider .single-screen img {height: 500px;}
 	.first-slider .single-screen .slide-content .slide-text h2 {font-size: 28px; padding: 0 30px;}

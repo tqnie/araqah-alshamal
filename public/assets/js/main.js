@@ -74,6 +74,8 @@ $(document).ready(function () {
         $("#header-scroll").removeClass("h-fixed")
   });
 
+	
+	
 $(window).scroll(function () {
      var sc = $(window).scrollTop()
     if (sc > 1) {
@@ -82,29 +84,6 @@ $(window).scroll(function () {
         $("#header-scroll").removeClass("h-fixed")
     }
 });
-
-//scrollspy
-
-	
-    const video = document.getElementById("myVideo");
-    const playButton = document.getElementById("playBtn");
-    if(playButton){
-    playButton.addEventListener("click", () => {
-        if (video.paused) {
-            video.play();
-            playButton.classList.add("hide"); // إخفاء زر التشغيل بعد البدء
-        }
-    });
-}
-if(video){
-    video.addEventListener("click", () => {
-        if (!video.paused) {
-            video.pause();
-            playButton.classList.remove("hide"); // إعادة زر التشغيل عند الإيقاف
-        }
-    });
-}
-	
 
 
 	
@@ -131,6 +110,30 @@ if(video){
 		$(".overlapblackbg").toggleClass('active');
 
     });	
+	
+	
+//scrollspy
+
+	
+    const video = document.getElementById("myVideo");
+    const playButton = document.getElementById("playBtn");
+
+    playButton.addEventListener("click", () => {
+        if (video.paused) {
+            video.play();
+            playButton.classList.add("hide"); // إخفاء زر التشغيل بعد البدء
+        }
+    });
+
+    video.addEventListener("click", () => {
+        if (!video.paused) {
+            video.pause();
+            playButton.classList.remove("hide"); // إعادة زر التشغيل عند الإيقاف
+        }
+    });
+	
+	
+
 	
 });
 

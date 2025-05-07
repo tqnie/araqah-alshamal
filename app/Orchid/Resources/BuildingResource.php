@@ -52,8 +52,8 @@ class BuildingResource extends Resource
             Select::make('sale')
                 ->title('حالة البيع')
                 ->options([
-                    '0' => 'غير مباع',
-                    '1' => 'مباع',
+                    'غير مباعة'=> 'غير مباعة',
+                    'مباعة' => 'مباعة',
                 ])
                 ->required(),
             Input::make('price')
@@ -121,7 +121,7 @@ class BuildingResource extends Resource
                 }),
             TD::make('sale', 'حالة البيع')
                 ->render(function ($model) {
-                    return $model->sale ? 'مباع' : 'غير مباع';
+                    return $model->sale ? 'مباعة' : 'غير مباعة';
                 }),
             TD::make('price', 'السعر')
                 ->render(function ($model) {

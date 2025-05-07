@@ -242,7 +242,11 @@ new #[Layout('layouts.app')] class extends Component
             document.getElementById('plotDetails').innerHTML = `
                 <strong>رقم القطعة:</strong> ${building.name}<br>
                 <strong>الحالة:</strong> ${building.type}<br>
-                <strong>المساحة:</strong> ${building.space} م²
+                <strong>المساحة:</strong> ${building.area} م²<br>
+                <strong>الشارع:</strong> ${building.street_view}  <br>
+                <strong>الاتجاه:</strong> ${building.direction}  <br>
+                <strong>السعر:</strong> ${building.price}  <br>
+                <strong>النوع:</strong> ${building.type}   
             `;
 
             // حذف أي مربع معلومات سابق

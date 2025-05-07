@@ -256,7 +256,7 @@ new #[Layout('layouts.app')] class extends Component
             }
 
             // إنشاء مربع معلومات جديد
-            const infoText = new fabric.Text(`${building.name}\n${building.type}\n${building.space}م²`, {
+            const infoText = new fabric.Text(`${building.name}\n${building.type}\n${building.area}م²\n${building.price}`, {
                 fontSize: 14,
                 fill: 'white',
                 textAlign: 'center',

@@ -44,9 +44,12 @@ new #[Layout('layouts.app')] class extends Component
         <section class="page-content">
             <div class="container">
                 <div class="page-iamge"><img src=" {{$page->image??'images/blog_iamge.png'}}" alt="{{$page->title}}" title="{{$page->title}}" /></div>
-                <div class="page-text">
-                    {!! $page->body !!}
-                      </div>
+                <div class="page-text"> {!! $page->body !!} </div>
+                    @if($page->slug=='interest')
+                        <div class="col-12 ">
+                            <livewire:widgets.contact-us-widget />
+                        </div>
+                    @endif
             </div>
         </section>
         <section class="latest-blogs">

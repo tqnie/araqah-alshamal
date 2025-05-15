@@ -25,8 +25,6 @@ Volt::route('service/{slug}', 'pages.service.show')
 ->name('service.show');
 
 
-Route::get('building_plan/{id}', [BuildingPlansController::class, 'index'])->name('building_plan.index');
-Route::post('building_plan/building/{id}', [BuildingPlansController::class, 'buildingStore'])->name('building.store');
 // Route::view('dashboard', 'dashboard')
 //    // ->middleware(['auth', 'verified'])
 //     ->name('home');

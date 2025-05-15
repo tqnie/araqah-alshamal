@@ -13,6 +13,7 @@ class Building extends Model
     protected $fillable = [
         'building_plan_id',
         'building_number',
+        'block_number',
         'sale',
         'price',
         'area',

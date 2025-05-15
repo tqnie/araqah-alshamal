@@ -117,21 +117,21 @@ $(window).scroll(function () {
 	
     const video = document.getElementById("myVideo");
     const playButton = document.getElementById("playBtn");
-
+    if(playButton){
     playButton.addEventListener("click", () => {
         if (video.paused) {
             video.play();
             playButton.classList.add("hide"); // إخفاء زر التشغيل بعد البدء
         }
-    });
-
+    });}
+    if(video){
     video.addEventListener("click", () => {
         if (!video.paused) {
             video.pause();
             playButton.classList.remove("hide"); // إعادة زر التشغيل عند الإيقاف
         }
     });
-	
+	}
 	
 
 	

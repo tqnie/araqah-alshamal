@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             
             $table->unsignedInteger('building_plan_id');
-            $table->string('building_number');
+            $table->string('building_number'); 
             $table->string('sale');
             $table->decimal('price', 10, 2);
-            $table->float('area');
+            $table->string('area');
+            $table->string('block_number');
             $table->string('street_view');
             $table->string('direction');
             $table->string('type');

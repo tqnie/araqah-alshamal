@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\BuildingPlansController;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -105,4 +106,11 @@ Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.exam
 
 Route::screen('settings', SettingScreen::class)->name( 'platform.screens.settings');
 Route::screen('home-settings', HomeSettingScreen::class)->name( 'platform.screens.home-settings');
+
+
+Route::get('building_plan/{id}', [BuildingPlansController::class, 'index'])->name('building_plan.index');
+Route::post('building_plan/building/{id}', [BuildingPlansController::class, 'buildingStore'])->name('building.store');
+Route::get('building_plan/building/{id}/excel', [BuildingPlansController::class, 'uploadExcel'])->name('building.uploadExcel');
+Route::post('building_plan/building/{id}/excel', [BuildingPlansController::class, 'uploadExcelAction'])->name('building.uploadExcel.upload');
+
 //Route::screen('idea', Idea::class, 'platform.screens.idea');

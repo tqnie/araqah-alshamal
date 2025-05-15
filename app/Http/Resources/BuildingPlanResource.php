@@ -22,6 +22,8 @@ class BuildingPlanResource extends JsonResource
             'location' => $this->location, 
             'building_image' => $this->pathImage?$this->pathImage->url() : null, 
             'count_buildings' => $this->count_buildings, 
+            'count_buildings_sold' => $this->count_buildings_sold, 
+            'count_buildings_nosold' => $this->count_buildings_nosold, 
             'project_id' => $this->project_id, 
             'type' => $this->type, 
             'active' => $this->active,

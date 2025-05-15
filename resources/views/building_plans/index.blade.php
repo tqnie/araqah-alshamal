@@ -1,366 +1,1003 @@
 @extends('platform::dashboard')
 
 @section('title', 'تخطيط المباني')
-@section('description', 'تخطيط المباني')
+@section('description', 'نظام إدارة وتخطيط المباني')
 
 @section('navbar')
 <style>
-    .container {
+    :root {
+        --primary-color: #3490dc;
+        --secondary-color: #38c172;
+        --danger-color: #e3342f;
+        --warning-color: #ffed4a;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --border-color: #dee2e6;
+    }
+
+    .building-layout-container {
         position: relative;
         margin: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-        border: 1px solid #ccc;
         height: 80vh;
+        background-color: var(--light-color);
     }
+
+    .canvas-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
     #canvas {
-        border: 1px solid #ccc;
-        margin: 20px auto;
-        display: block;
+        border-radius: 4px;
+        transition: all 0.3s ease;
     }
-    .controls-panel, .building-form {
+#controlsPanel,#buildingForm{
+    display: none;
+}
+.active{
+     display: block !important;
+}
+    .panel {
         position: fixed;
-        top: 20px;
         background: white;
         padding: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 100;
         max-height: 90vh;
         overflow-y: auto;
+        transition: all 0.3s ease;
     }
+
     .controls-panel {
         left: 20px;
+        top: 20px;
+        width: 220px;
     }
+
     .building-form {
         right: 20px;
-        max-width: 400px;
+        top: 20px;
+        width: 320px;
     }
+
+    .panel-header {
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .panel-header h3 {
+        margin: 0;
+        color: var(--dark-color);
+        font-size: 18px;
+    }
+
     .tool-btn {
-        margin: 5px;
+        margin: 5px 2px;
         padding: 8px 16px;
         cursor: pointer;
+        border: 1px solid var(--border-color);
+        background-color: white;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 500;
     }
-    .active {
-        background-color: #007bff;
+
+    .tool-btn i {
+        margin-left: 5px;
+    }
+
+    .tool-btn:hover {
+        background-color: #f8f9fa;
+    }
+
+    .tool-btn.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .tool-btn.danger {
+        color: var(--danger-color);
+        border-color: var(--danger-color);
+    }
+
+    .tool-btn.danger:hover {
+        background-color: var(--danger-color);
         color: white;
     }
-    .building-form div {
-        margin-bottom: 10px;
+
+    .tool-btn.danger.active {
+        background-color: var(--danger-color);
+        color: white;
     }
-    .building-form button {
-        margin-top: 15px;
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--dark-color);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(52, 144, 220, 0.25);
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #2779bd;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .toggle-panel {
+        position: fixed;
+        background: var(--primary-color);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 101;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .toggle-controls {
+        top: 20px;
+        left: 20px;
+    }
+
+    .toggle-form {
+        top: 20px;
+        right: 20px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .color-indicator {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    .status-sold {
+        background-color: rgba(227, 52, 47, 0.7);
+    }
+
+    .status-available {
+        background-color: rgba(56, 193, 114, 0.7);
+    }
+
+    .status-construction {
+        background-color: rgba(255, 237, 74, 0.7);
+    }
+
+    .canvas-status {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: white;
+        padding: 15px 20px;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .toast-success {
+        border-left: 4px solid var(--secondary-color);
+    }
+
+    .toast-error {
+        border-left: 4px solid var(--danger-color);
+    }
+
+    /* مسؤول عن طريقة العرض في الشاشات الصغيرة */
+    @media (max-width: 768px) {
+        .controls-panel, .building-form {
+            width: 100%;
+            max-width: 100%;
+            left: 0;
+            right: 0;
+            border-radius: 0;
+            transform: translateY(-100%);
+        }
+
+        .controls-panel.active, .building-form.active {
+            transform: translateY(0);
+        }
+
+        .toggle-panel {
+            display: flex;
+        }
     }
 </style>
 @stop
-{{-- street_view<direction<type<area<price<sale<building_number<building_plan_id --}}
+
 @section('content')
-<div class="text-center mt-5 mb-5">
-    <div class="container">
-        <canvas id="canvas"></canvas>
+<div class="building-layout-container">
+    <div class="canvas-wrapper">
+         <div class="map-container" id="mapContainer">
+                    <canvas id="canvas"></canvas>
+                </div>
+        <div class="canvas-status">
+            <span id="zoom-level">تكبير: 100%</span> | 
+            <span id="coordinates">X: 0, Y: 0</span>
+        </div>
     </div>
 
-    <div class="controls-panel">
-        <h3>أدوات التحكم</h3>
-        <button class="tool-btn" id="selectTool">تحديد</button>
-        <button class="tool-btn" id="rectangleTool">مستطيل</button>
-        <button class="tool-btn" id="deleteTool">حذف</button>
+    <!-- زر تبديل لوحة التحكم -->
+    <div class="toggle-panel toggle-controls" id="toggleControls">
+        <i class="icon icon-settings"></i>
+    </div>
 
-        <div>
-            <label>الحالة:</label>
-            <select id="building_sale"> 
-                <option value="مباعة">مباعة</option>
+    <!-- لوحة التحكم -->
+    <div class="panel controls-panel " id="controlsPanel">
+        <div class="panel-header">
+            <h3>أدوات التحكم</h3>
+            <button id="closeControls" class="btn btn-sm">×</button>
+        </div>
+        
+        <div class="form-group">
+            <div class="tool-btn" id="selectTool" title="تحديد وتحريك">
+                <i class="icon icon-cursor"></i> تحديد
+            </div>
+            <div class="tool-btn" id="rectangleTool" title="رسم مستطيل">
+                <i class="icon icon-square"></i> مستطيل
+            </div>
+            <div class="tool-btn danger" id="deleteTool" title="حذف عنصر">
+                <i class="icon icon-trash"></i> حذف
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">المقياس</div>
+            <div style="display: flex; align-items: center;">
+                <button class="btn btn-sm" id="zoomOut" title="تصغير">-</button>
+                <input type="range" id="zoomSlider" min="20" max="500" value="100" style="flex: 1; margin: 0 10px;">
+                <button class="btn btn-sm" id="zoomIn" title="تكبير">+</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">حالة المبنى</div>
+            <select id="sold" class="form-control"> 
                 <option value="غير مباعة">غير مباعة</option>
-                <option value="تحت الانشاء">تحت الانشاء</option>
+                <option value="مباعة">مباعة</option>
+                <option value="تحت الانشاء">تحت الإنشاء</option>
             </select>
         </div>
-        <div>
-            <label>الشفافية:</label>
-            <input type="range" id="opacity" min="0" max="100" value="30">
+
+        <div class="form-group">
+            <div class="form-label">شفافية المباني</div>
+            <input type="range" id="opacity" min="10" max="100" value="50" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">دليل الألوان</div>
+            <div>
+                <span class="color-indicator status-available"></span> غير مباعة
+            </div>
+            <div>
+                <span class="color-indicator status-sold"></span> مباعة
+            </div>
+            <div>
+                <span class="color-indicator status-construction"></span> تحت الإنشاء
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button id="resetView" class="btn btn-secondary" title="إعادة تعيين العرض">
+                إعادة تعيين العرض
+            </button>
         </div>
     </div>
 
-    <div class="building-form">
-        <h3>إضافة مبنى جديد</h3>
-        <form id="buildingForm">
+    <!-- زر تبديل نموذج المبنى -->
+    <div class="toggle-panel toggle-form" id="toggleForm">
+        <i class="icon icon-plus"></i>
+    </div>
+
+    <!-- نموذج المبنى -->
+    <div class="panel building-form" id="buildingForm">
+        <div class="panel-header">
+            <h3>بيانات المبنى</h3>
+            <button id="closeForm" class="btn btn-sm">×</button>
+        </div>
+
+        <form id="buildingDataForm">
+            <div class="form-group">
+                <label class="form-label">رقم القطعة:</label>
+                <input type="number" id="building_number" class="form-control" required /> 
+            </div>
             
-            <div>
-                <label>البلك:</label>
-                <input type="number" id="building_bloc" />
+            <div class="form-group">
+                <label class="form-label">رقم البلوك:</label>
+                <input type="number" id="block_number" class="form-control"   />
             </div>
-            <div>
-                <label>القطعة:</label>
-                <input type="number" id="building_number" /> 
-            <div>
-                <label>عرض الشارع:</label>
-                <input type="number" id="street_view" />
+            
+            <div class="form-group">
+                <label class="form-label">عرض الشارع:</label>
+                <input type="text" id="street_view" class="form-control" />
             </div>
-            <div>
-                <label>المساحة :</label>
-                <input type="number" id="building_area" />
+            
+            <div class="form-group">
+                <label class="form-label">المساحة:</label>
+                <input type="text" id="area" class="form-control"   />
             </div>
-            <div>
-                <label>الاتجاه:</label>
-                <select id="building_direction"> 
+            
+            <div class="form-group">
+                <label class="form-label">الاتجاه:</label>
+                <select id="direction" class="form-control"> 
+                    <option value=""></option>
                     <option value="شرقي">شرقي</option>
                     <option value="غربي">غربي</option>
                     <option value="شمالي">شمالي</option>
                     <option value="جنوبي">جنوبي</option>
-                    <option value="جنوب شرقي">جنوب شرقي</option>
-                    <option value="جنوب غربي">جنوب غربي</option>
-                    <option value="شمالي شرقي">شمالي شرقي</option>
-                    <option value="شمالي جنوبي">شمالي جنوبي</option>
+                    <option value="شرقي - جنوبي">شرقي - جنوبي</option>
+                    <option value="جنوبي - غربي">جنوبي - غربي</option>
+                    <option value="شرقي - شمالي">شرقي - شمالي</option>
+                    <option value="شمالي - غربي">شمالي - غربي</option>
+                    <option value="شرقي - جنوبي - شمالي">شرقي - جنوبي - شمالي</option>
                 </select>
             </div>
-            <div>
-                <label>نوع المبنى:</label>
-                <select id="building_type">
+            
+            <div class="form-group">
+                <label class="form-label">نوع المبنى:</label>
+                <select id="type" class="form-control"  >
+                    <option value=""></option>
                     <option value="تجاري">تجاري</option>
                     <option value="سكني">سكني</option>
                     <option value="مكتبي">مكتبي</option>
                     <option value="فندقي">فندقي</option>
                 </select>
             </div>
-            <div>
-                <label>السعر:</label>
-                <input type="number" id="building_price" required>
+            
+            <div class="form-group">
+                <label class="form-label">السعر:</label>
+                <input type="number" id="price" class="form-control">
             </div>
            
-            <button type="submit">إضافة</button>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                <button type="reset" class="btn btn-secondary">مسح البيانات</button>
+            </div>
         </form>
-
-        <div class="buildings-list">
-            <h3>المباني المضافة</h3>
-            <pre id="buildingsList"></pre>
-        </div>
     </div>
+
+    <!-- رسالة الإشعارات -->
+    <div class="toast" id="toast"></div>
 </div>
 @stop
-
-@push('styles')
-<style>
-    /* Add additional custom styles here if needed */
-</style>
-@endpush
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/fabric@latest/dist/fabric.min.js"></script>
 
 <script>
-    // إعدادات الـCanvas
-    const canvas = new fabric.Canvas('canvas', {
-        width: window.innerWidth - 40,
-        height: window.innerHeight - 40,
-        selection: true
-    });
-
-   
-    const buildings =@json($buildings);
-
-    // إضافة المباني إلى الـCanvas
-    buildings.forEach(building => {
-        const rect = new fabric.Rect({
-            left: building.coordinates.left,
-            top: building.coordinates.top,
-            fill: building.type === 'مباعة' ? 'rgba(255, 0, 43, 0.5)' : 'rgba(0, 255, 0, 0.5)',
-            width: building.coordinates.width,
-            height: building.coordinates.height,
-            selectable: false,
-            hoverCursor: 'pointer'
+    document.addEventListener('DOMContentLoaded', function() {
+        /**
+         * التهيئة الأساسية
+         */
+        // تهيئة الكانفاس
+        const canvas = new fabric.Canvas('canvas', { 
+            selection: true,
+            preserveObjectStacking: true,
+            stopContextMenu: true
         });
+           // تخزين البيانات
+        const state = {
+            currentTool: 'select',
+            isDragging: false,
+            isDrawing: false,
+            currentShape: null,
+            lastPosX: 0,
+            lastPosY: 0,
+            panMode: false,
+            zoomLevel: 1,
+            buildingData: @json($buildings),
+            selectedBuilding: null
+        };
 
-        rect.on('mousedown', function() {
-            alert(`معلومات القطعة: ${building.name}`);
-        });
+        // تحديد الألوان حسب حالة المبنى
+        const BUILDING_COLORS = {
+            'مباعة': 'rgba(227, 52, 47, 0.7)',
+            'غير مباعة': 'rgba(56, 193, 114, 0.7)',
+            'تحت الانشاء': 'rgba(255, 237, 74, 0.7)'
+        };
 
-        canvas.add(rect);
-    });
+        /**
+         * وظائف مساعدة
+         */
+        // إظهار رسالة للمستخدم
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast toast-${type} show`;
+            
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
 
-    // تحميل الصورة الخلفية للمخطط
-    fabric.Image.fromURL('{{$buildingPlan->pathImage->url}}', function(img) {
-        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-            originX: 'left',
-            originY: 'top',
-            scaleX: 1,
-            scaleY: 1
-        });
-    });
+        // تحديث معلومات الكانفاس
+        function updateCanvasInfo() {
+            document.getElementById('zoom-level').textContent = `تكبير: ${Math.round(state.zoomLevel * 100)}%`;
+        }
 
-    // أدوات التحكم
-    let currentTool = 'select';
-    document.getElementById('selectTool').addEventListener('click', () => setTool('select'));
-    document.getElementById('rectangleTool').addEventListener('click', () => setTool('rectangle'));
-    document.getElementById('deleteTool').addEventListener('click', () => setTool('delete'));
+        // تحويل القيم إلى أرقام (للتأكد من صحة القيم الرقمية)
+        function parseNumericValue(value) {
+            return value === '' ? 0 : parseFloat(value);
+        }
 
-    function setTool(tool) {
-        currentTool = tool;
-        document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(`${tool}Tool`).classList.add('active');
-
-        canvas.isDrawingMode = false;
-        canvas.selection = (tool === 'select');
-
-        if (tool === 'delete') {
-            const activeObject = canvas.getActiveObject();
-            if (activeObject) {
-                canvas.remove(activeObject);
-                canvas.renderAll();
-            }
+        // تعديل مقاس الكانفاس ليناسب الحاوية
+    function resizeCanvas() {
+        const container = document.getElementById('mapContainer');
+        if (container) {
+            canvas.setWidth(container.clientWidth);
+            canvas.setHeight(600);
+            canvas.renderAll();
         }
     }
-
-    // تمكين التكبير والتصغير باستخدام عجلة الفأرة
-    canvas.on('mouse:wheel', function(e) {
-        let zoom = canvas.getZoom();
-        let delta = e.e.deltaY;
-
-        zoom = delta > 0 ? zoom * 1.1 : zoom / 1.1;
-        zoom = Math.max(0.2, Math.min(zoom, 5));
-        canvas.zoomToPoint({ x: e.e.offsetX, y: e.e.offsetY }, zoom);
-        e.e.preventDefault();
-    });
-
-    // تمكين السحب لتحريك الخلفية
-    let isDragging = false;
-    let lastPosX, lastPosY;
-    canvas.on('mouse:down', function(e) {
-        if (currentTool === 'select' && e.e.button === 0) {
-            isDragging = true;
-            lastPosX = e.e.clientX;
-            lastPosY = e.e.clientY;
-        }
-    });
-//^s%s![3;3(10
-    canvas.on('mouse:move', function(e) {
-        if (isDragging && currentTool === 'select') {
-            const deltaX = e.e.clientX - lastPosX;
-            const deltaY = e.e.clientY - lastPosY;
-
-            canvas.viewportTransform[4] += deltaX;
-            canvas.viewportTransform[5] += deltaY;
-            canvas.renderAll();
-
-            lastPosX = e.e.clientX;
-            lastPosY = e.e.clientY;
-        }
-    });
-
-    canvas.on('mouse:up', function() {
-        isDragging = false;
-    });
-
-    // رسم مستطيل عند اختيار أداة المستطيل
-    let isDrawing = false;
-    let currentShape = null;
-    canvas.on('mouse:down', function(e) {
-        if (currentTool === 'rectangle' && !isDrawing) {
-            isDrawing = true;
-            const pointer = canvas.getPointer(e.e);
-            const color = document.getElementById('building_sale').value !== 'مباعة' ? '#00ff00' : '#ff0000';
-            currentShape = new fabric.Rect({
-                left: pointer.x,
-                top: pointer.y,
-                width: 0,
-                height: 0,
+resizeCanvas();
+        // إضافة مبنى جديد إلى الكانفاس
+        function addBuildingToCanvas(building) {
+            const color = BUILDING_COLORS[building.sale] || BUILDING_COLORS['غير مباعة'];
+            
+            const rect = new fabric.Rect({
+                left: building.coordinates.left,
+                top: building.coordinates.top,
+                width: building.coordinates.width,
+                height: building.coordinates.height,
                 fill: color,
                 opacity: document.getElementById('opacity').value / 100,
-                selectable: true
+                selectable: true,
+                hoverCursor: 'pointer'
             });
-            canvas.add(currentShape);
-        }
-    });
-
-    canvas.on('mouse:move', function(e) {
-        if (isDrawing && currentTool === 'rectangle') {
-            const pointer = canvas.getPointer(e.e);
-
-            if (currentShape) {
-                if (pointer.x < currentShape.left) currentShape.set({ left: pointer.x });
-                if (pointer.y < currentShape.top) currentShape.set({ top: pointer.y });
-
-                currentShape.set({
-                    width: Math.abs(pointer.x - currentShape.left),
-                    height: Math.abs(pointer.y - currentShape.top)
-                });
-
-                canvas.renderAll();
-            }
-        }
-    });
-
-    canvas.on('mouse:up', function() {
-        isDrawing = false;
-        if (currentShape) currentShape.setCoords();
-    });
-
-    // حفظ المباني
-    document.getElementById('buildingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const activeObject = canvas.getActiveObject();
-        if (!activeObject) {
-            alert('الرجاء تحديد شكل أولاً');
-            return;
-        }
-        // building_bloc,building_number,street_view,building_direction,building_type,building_area,building_price,building_plan_id
-    //    'building_plan_id',
-    //     'building_number',
-    //     'sale',
-    //     'price',
-    //     'area',
-    //     'street_view',
-    //     'direction',
-    //     'type',
-    //     'x',
-    //     'y',
-    //     'width',
-    //     'height',
-    //     'active'
-
-     
-        const building = {
-            id: buildings.length + 1,
-            name: document.getElementById('building_bloc').value,
-            sale: document.getElementById('building_sale').value,
-            building_number: document.getElementById('building_number').value,
-            area: document.getElementById('building_area').value,
-            street_view: document.getElementById('street_view').value,
-            direction: document.getElementById('building_direction').value,
-            type: document.getElementById('building_type').value,
-            price: document.getElementById('building_price').value,
-            building_plan_id: {{$buildingPlan->id}},
             
-            coordinates: {
-                left: activeObject.left,
-                top: activeObject.top,
-                width: activeObject.width * activeObject.scaleX,
-                height: activeObject.height * activeObject.scaleY,
-                angle: activeObject.angle
-            }
-        };
-         
-        window.axios.post('{{route("building.store",$buildingPlan->id)}}',building).then(response => {
-            buildings.push(building);
-            alert(response.data);
-          //  this.reset();
-        }).catch(error => {
-                    callback(true, error);
+            // إضافة بيانات المبنى كخاصية في الكائن
+            rect.buildingData = building;
+            
+            // إضافة التسمية للمبنى
+            const label = new fabric.Text(`${building.building_number}`, {
+                fontSize: 10,
+                fill: '#000000',
+                originX: 'center',
+                originY: 'center',
+                left: rect.left + rect.width / 2,
+                top: rect.top + rect.height / 2,
+                selectable: false
+            });
+            
+            // إنشاء مجموعة تضم المستطيل والتسمية
+            const group = new fabric.Group([ rect, label ], {
+                left: rect.left,
+                top: rect.top,
+                selectable: true,
+                hoverCursor: 'pointer',
+                hasControls: true,
+                hasBorders: true,
+                buildingData: building
+            });
+            
+            // إضافة حدث النقر على المبنى
+            group.on('selected', function() {
+                if(state.currentTool === 'select') {
+                    selectBuilding(this.buildingData);
+                }
+            });
+            
+            canvas.add(group);
+            return group;
+        }
+
+        // اختيار مبنى وعرض بياناته في النموذج
+        function selectBuilding(building) {
+            state.selectedBuilding = building;
+            
+            // تعبئة النموذج بالبيانات
+            document.getElementById('block_number').value = building.block_number || '';
+            document.getElementById('sold').value = building.sale || 'غير مباعة';
+            document.getElementById('building_number').value = building.building_number || '';
+            document.getElementById('area').value = building.area || '';
+            document.getElementById('street_view').value = building.street_view || '';
+            document.getElementById('direction').value = building.direction || '';
+            document.getElementById('type').value = building.type || '';
+            document.getElementById('price').value = building.price || '';
+            
+            // عرض لوحة البيانات
+            document.getElementById('buildingForm').classList.add('active');
+        }
+
+        // تحديث بيانات مبنى
+        function updateBuildingData(buildingObj, newData) {
+            // تحديث البيانات في كائن المبنى
+            Object.assign(buildingObj.buildingData, newData);
+            
+            // تحديث لون المبنى حسب الحالة
+            const color = BUILDING_COLORS[newData.sale] || BUILDING_COLORS['غير مباعة'];
+            
+            // تحديث الكائن المرئي
+            const rect = buildingObj.getObjects('rect')[0];
+            if (rect) {
+                rect.set({
+                    fill: color,
+                    opacity: document.getElementById('opacity').value / 100
                 });
+            }
+            
+            // تحديث التسمية
+            const label = buildingObj.getObjects('text')[0];
+            if (label) {
+                label.set({
+                    text: newData.building_number.toString()
+                });
+            }
+            
+            canvas.renderAll();
+        }
 
+        // حذف مبنى من الكانفاس
+        function deleteBuilding(buildingObj) {
+            canvas.remove(buildingObj);
+            canvas.renderAll();
+            
+            // إذا كان المبنى المحذوف هو المحدد حالياً، قم بإعادة تعيين حالة التحديد
+            if (state.selectedBuilding && buildingObj.buildingData.id === state.selectedBuilding.id) {
+                state.selectedBuilding = null;
+                document.getElementById('buildingDataForm').reset();
+            }
+        }
 
-       
-       // updateBuildingsList();
-    
-    });
+        // تعيين أداة التحكم الحالية
+        function setTool(tool) {
+            state.currentTool = tool;
+            
+            // إزالة التصنيف النشط من جميع الأزرار
+            document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // إضافة التصنيف النشط للزر المحدد
+            document.getElementById(`${tool}Tool`).classList.add('active');
+            
+            // إعدادات الكانفاس بناءً على الأداة المحددة
+            canvas.isDrawingMode = false;
+            canvas.selection = (tool === 'select');
+            
+            // إذا كانت أداة الحذف، نفعل وضع الحذف
+            if (tool === 'delete' && canvas.getActiveObject()) {
+                deleteBuilding(canvas.getActiveObject());
+                setTool('select'); // العودة إلى أداة التحديد بعد الحذف
+            }
+        }
 
-    function updateBuildingsList() {
-        document.getElementById('buildingsList').textContent = JSON.stringify(buildings, null, 2);
-    }
+        /**
+         * تحميل صورة المخطط
+         */
+        fabric.Image.fromURL('{{$buildingPlan->pathImage->url}}', function(img) {
+              // Calculate scaling to fit the canvas while maintaining aspect ratio
+            const canvasWidth = canvas.getWidth();
+            const canvasHeight = canvas.getHeight();
+            
+            const scaleX = canvasWidth / img.width;
+            const scaleY = canvasHeight / img.height;
+            const scale = Math.min(scaleX, scaleY);
+            
+            img.set({
+                originX: 'left',
+                originY: 'top',
+                // scaleX: scale,
+                // scaleY: scale,
+                selectable: false
+            });
+            
+            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+            canvas.mapImage = img; // Store reference to the image
+        }, { crossOrigin: 'anonymous' });
 
-    // تحديث حجم Canvas عند تغيير حجم النافذة
-    window.addEventListener('resize', function() {
-        canvas.setWidth(window.innerWidth - 40);
-        canvas.setHeight(window.innerHeight - 40);
-        canvas.renderAll();
+        /**
+         * إضافة المباني الموجودة إلى الكانفاس
+         */
+        if (state.buildingData && state.buildingData.length) {
+            state.buildingData.forEach(building => {
+                addBuildingToCanvas(building);
+            });
+        }
+
+        /**
+         * أحداث أزرار التحكم
+         */
+        // أزرار أدوات التحكم
+        document.getElementById('selectTool').addEventListener('click', () => setTool('select'));
+        document.getElementById('rectangleTool').addEventListener('click', () => setTool('rectangle'));
+        document.getElementById('deleteTool').addEventListener('click', () => setTool('delete'));
+        
+        // أزرار التكبير والتصغير
+        document.getElementById('zoomIn').addEventListener('click', function() {
+            let zoom = state.zoomLevel * 1.1;
+            zoom = Math.min(zoom, 5);
+            const center = { x: canvas.width / 2, y: canvas.height / 2 };
+            canvas.zoomToPoint(center, zoom);
+            state.zoomLevel = zoom;
+            updateCanvasInfo();
+        });
+        
+        document.getElementById('zoomOut').addEventListener('click', function() {
+            let zoom = state.zoomLevel / 1.1;
+            zoom = Math.max(zoom, 0.2);
+            const center = { x: canvas.width / 2, y: canvas.height / 2 };
+            canvas.zoomToPoint(center, zoom);
+            state.zoomLevel = zoom;
+            updateCanvasInfo();
+        });
+        
+        // شريط تمرير التكبير
+        document.getElementById('zoomSlider').addEventListener('input', function() {
+            const zoom = parseInt(this.value) / 100;
+            const center = { x: canvas.width / 2, y: canvas.height / 2 };
+            canvas.zoomToPoint(center, zoom);
+            state.zoomLevel = zoom;
+            updateCanvasInfo();
+        });
+        
+        // زر إعادة تعيين العرض
+        document.getElementById('resetView').addEventListener('click', function() {
+            canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+            state.zoomLevel = 1;
+            document.getElementById('zoomSlider').value = 100;
+            updateCanvasInfo();
+        });
+        
+        // تغيير شفافية المباني
+        document.getElementById('opacity').addEventListener('input', function() {
+            const opacity = this.value / 100;
+            canvas.forEachObject(function(obj) {
+                if (obj.type === 'group') {
+                    const rect = obj.getObjects('rect')[0];
+                    if (rect) {
+                        rect.set('opacity', opacity);
+                    }
+                }
+            });
+            canvas.renderAll();
+        });
+
+        /**
+         * أحداث تبديل اللوحات
+         */
+        document.getElementById('toggleControls').addEventListener('click', function() {
+            document.getElementById('controlsPanel').classList.toggle('active');
+        });
+        
+        document.getElementById('closeControls').addEventListener('click', function() {
+            document.getElementById('controlsPanel').classList.remove('active');
+        });
+        
+        document.getElementById('toggleForm').addEventListener('click', function() {
+            document.getElementById('buildingForm').classList.toggle('active');
+        });
+        
+        document.getElementById('closeForm').addEventListener('click', function() {
+            document.getElementById('buildingForm').classList.remove('active');
+        });
+
+        /**
+         * أحداث الكانفاس
+         */
+        // تعديل حجم الكانفاس عند تغيير حجم النافذة
+        window.addEventListener('resize', resizeCanvas);
+        
+        // التكبير والتصغير باستخدام عجلة الفأرة
+        canvas.on('mouse:wheel', function(e) {
+            e.e.preventDefault();
+            
+            let zoom = canvas.getZoom();
+            zoom = e.e.deltaY < 0 ? zoom * 1.1 : zoom / 1.1;
+            zoom = Math.min(Math.max(0.2, zoom), 5);
+            
+            canvas.zoomToPoint({ x: e.e.offsetX, y: e.e.offsetY }, zoom);
+            state.zoomLevel = zoom;
+            document.getElementById('zoomSlider').value = Math.round(zoom * 100);
+            updateCanvasInfo();
+        });
+        
+        // تحديث إحداثيات المؤشر
+        canvas.on('mouse:move', function(e) {
+            const pointer = canvas.getPointer(e.e);
+            document.getElementById('coordinates').textContent = `X: ${Math.round(pointer.x)}, Y: ${Math.round(pointer.y)}`;
+            
+            // تحريك الكانفاس عند السحب في وضع التحديد
+            if (state.isDragging && state.currentTool === 'select' && !state.isDrawing) {
+                const deltaX = e.e.clientX - state.lastPosX;
+                const deltaY = e.e.clientY - state.lastPosY;
+                
+                canvas.relativePan(new fabric.Point(deltaX, deltaY));
+                
+                state.lastPosX = e.e.clientX;
+                state.lastPosY = e.e.clientY;
+            }
+            
+            // تحديث المستطيل أثناء الرسم
+            if (state.isDrawing && state.currentTool === 'rectangle') {
+                const pointer = canvas.getPointer(e.e);
+                
+                if (state.currentShape) {
+                    if (pointer.x < state.currentShape.left) {
+                        state.currentShape.set({ left: pointer.x });
+                    }
+                    if (pointer.y < state.currentShape.top) {
+                        state.currentShape.set({ top: pointer.y });
+                    }
+                    
+                    state.currentShape.set({
+                        width: Math.abs(pointer.x - state.currentShape.left),
+                        height: Math.abs(pointer.y - state.currentShape.top)
+                    });
+                    
+                    canvas.renderAll();
+                }
+            }});
+        // بدء السحب عند الضغط بزر الفأرة
+        canvas.on('mouse:down', function(e) {
+            const pointer = canvas.getPointer(e.e);
+            
+            // وضع السحب (للتحريك)
+            if (state.currentTool === 'select' && e.e.button === 0) {
+                state.isDragging = true;
+                state.lastPosX = e.e.clientX;
+                state.lastPosY = e.e.clientY;
+            }
+            
+            // وضع الرسم (للمستطيلات)
+            if (state.currentTool === 'rectangle' && !state.isDrawing) {
+                state.isDrawing = true;
+                
+                // تحديد لون المبنى حسب الحالة
+                const status = document.getElementById('sold').value;
+                const color = BUILDING_COLORS[status] || BUILDING_COLORS['غير مباعة'];
+                const opacity = document.getElementById('opacity').value / 100;
+                
+                // إنشاء مستطيل جديد
+                state.currentShape = new fabric.Rect({
+                    left: pointer.x,
+                    top: pointer.y,
+                    width: 0,
+                    height: 0,
+                    fill: color,
+                    opacity: opacity,
+                    selectable: true
+                });
+                
+                canvas.add(state.currentShape);
+            }
+        });
+        
+        // إنهاء السحب أو الرسم عند رفع زر الفأرة
+        canvas.on('mouse:up', function() {
+            // إنهاء وضع السحب
+            state.isDragging = false;
+            
+            // إنهاء وضع الرسم وإضافة المبنى إذا تم رسم مستطيل بحجم كافٍ
+            if (state.isDrawing && state.currentTool === 'rectangle') {
+                state.isDrawing = false;
+                
+                if (state.currentShape && state.currentShape.width > 5 && state.currentShape.height > 5) {
+                    // تهيئة النموذج لإدخال بيانات المبنى الجديد
+                    document.getElementById('buildingDataForm').reset();
+                    document.getElementById('buildingForm').classList.add('active');
+                    
+                    // تعيين المستطيل كالكائن النشط
+                    canvas.setActiveObject(state.currentShape);
+                    state.currentShape.setCoords();
+                } else if (state.currentShape) {
+                    // إزالة المستطيل إذا كان صغيرًا جدًا
+                    canvas.remove(state.currentShape);
+                }
+                
+                state.currentShape = null;
+            }
+        });
+        
+        // تحديد كائن عند النقر عليه
+        canvas.on('selection:created', function(e) {
+            if (state.currentTool === 'select') {
+                const obj = e.selected[0];
+                if (obj && obj.buildingData) {
+                    selectBuilding(obj.buildingData);
+                }
+            }
+        });
+        
+        // إزالة التحديد عند النقر خارج الكائنات
+        canvas.on('selection:cleared', function() {
+            if (state.currentTool === 'select') {
+                state.selectedBuilding = null;
+            }
+        });
+
+        /**
+         * أحداث نموذج البيانات
+         */
+        // حفظ بيانات المبنى
+        document.getElementById('buildingDataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // الحصول على الكائن النشط
+            const activeObject = canvas.getActiveObject();
+            if (!activeObject) {
+                showToast('الرجاء تحديد شكل أولاً', 'error');
+                return;
+            }
+            
+            // تجميع بيانات المبنى من النموذج
+            const buildingData = {
+                block_number: document.getElementById('block_number').value,
+                sale: document.getElementById('sold').value,
+                building_number: document.getElementById('building_number').value,
+                area: document.getElementById('area').value,
+                street_view: document.getElementById('street_view').value,
+                direction: document.getElementById('direction').value,
+                type: document.getElementById('type').value,
+                price: document.getElementById('price').value,
+                building_plan_id: {{$buildingPlan->id}},
+                 coordinates: {
+                }
+            };
+            
+            // إذا كان الكائن مستطيلًا (مبنى جديد)
+            if (activeObject.type === 'rect') {
+                buildingData.coordinates = {
+                    left: activeObject.left,
+                    top: activeObject.top,
+                    width: activeObject.width * activeObject.scaleX,
+                    height: activeObject.height * activeObject.scaleY,
+                    angle: activeObject.angle || 0
+                };
+                
+                // إرسال البيانات للخادم لإضافة مبنى جديد
+                window.axios.post('{{route("building.store",$buildingPlan->id)}}', buildingData)
+                    .then(response => {
+                        // إضافة هوية المبنى المسترجعة من الخادم
+                        buildingData.id = response.data.id || state.buildingData.length + 1;
+                        
+                        // إضافة المبنى إلى القائمة المحلية
+                        state.buildingData.push(buildingData);
+                        
+                        // إزالة المستطيل المؤقت
+                        canvas.remove(activeObject);
+                        
+                        // إضافة مبنى جديد مع التسمية
+                        const newBuilding = addBuildingToCanvas(buildingData);
+                        canvas.setActiveObject(newBuilding);
+                        
+                        showToast('تم إضافة المبنى بنجاح');
+                    })
+                    .catch(error => {
+                        showToast('حدث خطأ أثناء إضافة المبنى', 'error');
+                        console.error(error);
+                    });
+            } 
+            // إذا كان الكائن مجموعة (مبنى موجود)
+            else if (activeObject.type === 'group' && activeObject.buildingData) {
+                const building = activeObject.buildingData;
+                
+                // تحديث الإحداثيات
+                buildingData.coordinates = {
+                    left: activeObject.left,
+                    top: activeObject.top,
+                    width: activeObject.width,
+                    height: activeObject.height,
+                    angle: activeObject.angle || 0
+                };
+                
+                // إضافة هوية المبنى
+                buildingData.id = building.id;
+                
+                // إرسال البيانات للخادم لتحديث المبنى
+                window.axios.post('{{route("building.store",$buildingPlan->id)}}', buildingData)
+                    .then(response => {
+                        // تحديث البيانات والمظهر
+                        updateBuildingData(activeObject, buildingData);
+                        
+                        // تحديث المبنى في القائمة المحلية
+                        const index = state.buildingData.findIndex(b => b.id === building.id);
+                        if (index !== -1) {
+                            state.buildingData[index] = { ...state.buildingData[index], ...buildingData };
+                        }
+                        
+                        showToast('تم تحديث بيانات المبنى بنجاح');
+                    })
+                    .catch(error => {
+                        showToast('حدث خطأ أثناء تحديث بيانات المبنى', 'error');
+                        console.error(error);
+                    });
+            }
+        });
+        
+        // إعادة تعيين النموذج
+        document.getElementById('buildingDataForm').addEventListener('reset', function() {
+            state.selectedBuilding = null;
+        });
+
+        // التهيئة الأولية
+        resizeCanvas();
+        setTool('select');
+        updateCanvasInfo();
     });
 </script>
 @endpush

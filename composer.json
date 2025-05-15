@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
+        "maatwebsite/excel": "^3.1",
         "masmerise/livewire-toaster": "^2.7",
         "orchid/crud": "^4.3",
         "orchid/platform": "^14.44",

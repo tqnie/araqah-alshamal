@@ -108,15 +108,19 @@ class BuildingPlanResource extends Resource
                 ->render(function ($model) {
                     return $model->active ? 'مفعل' : 'غير مفعل';
                 }),
-            TD::make('created_at', 'Date of creation')
+            TD::make('id', 'رفع اكسل') 
                 ->render(function ($model) {
-                    return $model->created_at->toDateTimeString();
+                    return '<a href="'.route('building.uploadExcel',$model->id).'">رفع المباني</a>';
                 }),
+            // TD::make('created_at', 'Date of creation')
+            //     ->render(function ($model) {
+            //         return $model->created_at->toDateTimeString();
+            //     }),
 
-            TD::make('updated_at', 'Update date')
-                ->render(function ($model) {
-                    return $model->updated_at->toDateTimeString();
-                }),
+            // TD::make('updated_at', 'Update date')
+            //     ->render(function ($model) {
+            //         return $model->updated_at->toDateTimeString();
+            //     }),
                
         ];
     }

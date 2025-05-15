@@ -5,4 +5,5 @@ return [
     App\Providers\CrudServiceProvider::class,
     App\Providers\VoltServiceProvider::class,
     Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+     Maatwebsite\Excel\ExcelServiceProvider::class,
 ];

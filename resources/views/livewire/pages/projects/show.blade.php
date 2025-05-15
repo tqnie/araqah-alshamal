@@ -17,7 +17,7 @@ new #[Layout('layouts.app')] class extends Component
     public function mount($slug)
     {
         $project=Project::where('slug', $slug)->with(['buildingPlans'=>function($query){
-            $query->active()->with(['buildings'])->withCount(['buildings as count_buildings']);
+            $query->active()->with(['buildings'])->withCount(['buildings as count_buildings','buildings as count_buildings_sold'=>fn($q)=>$q->where('sale','مباعة'),'buildings as count_buildings_nosold'=>fn($q)=>$q->where('sale','!=','مباعة')]);
         }])->firstOrFail();
         SEOMeta::setTitle($project->name);
         SEOMeta::setDescription($project->excerpt);
@@ -38,7 +38,7 @@ new #[Layout('layouts.app')] class extends Component
             <p>{{$buildingPlan['excerpt']}}</p>
         </div>
         <div class="marketing-plan-map">
-            <img src="{{$buildingPlan['image']}}" alt="{{$buildingPlan['title']}}"  title="{{$buildingPlan['title']}}" />
+            <a href="{{route('building-plan.show',$buildingPlan['slug'])}}"><img src="{{$buildingPlan['image']}}" alt="{{$buildingPlan['title']}}"  title="{{$buildingPlan['title']}}" /></a>
         </div>
         <div class="row">
             <div class="col-12 col-sm-6">
@@ -56,7 +56,7 @@ new #[Layout('layouts.app')] class extends Component
                         <div class="col-12">
                             <div class="statistic">
                                 <span class="badge bg-commercial"></span>
-                                <div class="status">تجاري</div>
+                                <div class="status">عدد الوحدات</div>
                                 <div class="quantity">أكثر من {{$buildingPlan['count_buildings']}} قطعة</div>
                             </div>
                         </div>
@@ -64,13 +64,14 @@ new #[Layout('layouts.app')] class extends Component
                             <div class="statistic">
                                 <span class="badge bg-sold"></span>
                                 <div class="status">مباع</div>
-                                <div class="quantity">أكثر من {{$buildingPlan['count_buildings']}} قطعة</div>
+                                <div class="quantity">أكثر من {{$buildingPlan['count_buildings_sold']}} قطعة</div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="statistic">
                                 <span class="badge bg-unavailable"></span>
                                 <div class="status">غير متاح</div>
+                                <div class="quantity">أكثر من {{$buildingPlan['count_buildings_nosold']}} قطعة</div>
                             </div>
                         </div>
                     </div>

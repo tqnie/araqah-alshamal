@@ -373,8 +373,11 @@
         </div>
     </div>
 
-     
-        <h3>بيانات المبنى</h3>
+     <div class="panel controls-panel" >
+        <div class="panel-header">
+             <h3>بيانات المبنى</h3>
+        </div>
+       
         <form id="buildingDataForm">
             <div class="row">
             <div class="form-group col-sm-4">

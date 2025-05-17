@@ -29,6 +29,7 @@ class BuildingResource extends JsonResource
             'y' => $this->y,
             'width' => $this->width,
             'height' => $this->height,
+            'angle' => $this->angle,
             'active' => $this->active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('y');
             $table->integer('width');
             $table->integer('height');
+            $table->integer('angle');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

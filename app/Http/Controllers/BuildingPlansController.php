@@ -62,6 +62,7 @@ class BuildingPlansController extends Controller
                 'type' => $request->type,
                 'x' => $request->coordinates['left'],
                 'y' => $request->coordinates['top'],
+                'angle' => $request->coordinates['angle'],
                 'width' => $request->coordinates['width'],
                 'height' => $request->coordinates['height'],
                 'active' => '1'
@@ -89,6 +90,7 @@ class BuildingPlansController extends Controller
                 'y' => $request->coordinates['top'],
                 'width' => $request->coordinates['width'],
                 'height' => $request->coordinates['height'],
+                'angle' => $request->coordinates['angle'],
                 'active' => '1'
             ]);
         }

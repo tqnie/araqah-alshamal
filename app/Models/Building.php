@@ -20,6 +20,7 @@ class Building extends Model
         'street_view',
         'direction',
         'type',
+        'angle',
         'x',
         'y',
         'width',

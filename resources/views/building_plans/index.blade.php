@@ -4,19 +4,10 @@
 @section('description', 'نظام إدارة وتخطيط المباني')
 
 @push('head')
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.rtl.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
 <style>
-    :root {
-        --primary-color: #3490dc;
-        --secondary-color: #38c172;
-        --danger-color: #e3342f;
-        --warning-color: #ffed4a;
-        --light-color: #f8f9fa;
-        --dark-color: #343a40;
-        --border-color: #dee2e6;
-    }
+  
 
     .building-layout-container {
         position: relative;
@@ -51,7 +42,7 @@
     top: 20px;
     width: 220px;
 }
-/* .panel {
+.panel {
     
     background: white;
     padding: 15px;
@@ -61,12 +52,12 @@
     max-height: 90vh;
     overflow-y: auto;
     transition: all 0.3s ease;
-} */
+}
 
      
 
      
-    /* .panel-header {
+    .panel-header {
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 15px;
         padding-bottom: 10px;
@@ -121,9 +112,9 @@
     .tool-btn.danger.active {
         background-color: var(--danger-color);
         color: white;
-    } */
+    }
 
-    /* .form-group {
+    .form-group {
         margin-bottom: 15px;
     }
 
@@ -132,9 +123,9 @@
         margin-bottom: 5px;
         font-weight: 500;
         color: var(--dark-color);
-    } */
+    }
 
-    /* .form-control {
+    .form-control {
         width: 100%;
         padding: 8px 12px;
         border: 1px solid var(--border-color);
@@ -217,7 +208,7 @@
         border-radius: 50%;
         margin-right: 5px;
         vertical-align: middle;
-    } */
+    }
 
     .status-sold {
         background-color: rgba(227, 52, 47, 0.7);

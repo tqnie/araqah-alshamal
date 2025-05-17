@@ -4,6 +4,10 @@
 @section('description', 'نظام إدارة وتخطيط المباني')
 
 @push('styles')
+
+@endpush
+
+@section('content')
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.rtl.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -292,9 +296,6 @@
         }
     }
 </style>
-@endpush
-
-@section('content')
 <div class="building-layout-container">
     <div class="canvas-wrapper">
          <div class="map-container" id="mapContainer">

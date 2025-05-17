@@ -439,6 +439,7 @@
             <button type="submit" class="btn btn-primary">حفظ البيانات</button>
             <button type="reset" class="btn btn-secondary">مسح البيانات</button>
         </div>
+        </div>
     </form>
 </div>
 

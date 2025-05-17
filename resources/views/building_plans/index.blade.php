@@ -373,6 +373,9 @@
         </div>
     </div>
 
+    <!-- رسالة الإشعارات -->
+    <div class="toast" id="toast"></div>
+</div>
      <div class="panel controls-panel" >
         <div class="panel-header">
              <h3>بيانات المبنى</h3>
@@ -439,9 +442,6 @@
         </form>
      </div>
 
-    <!-- رسالة الإشعارات -->
-    <div class="toast" id="toast"></div>
-</div>
 @stop
 
 @push('scripts')

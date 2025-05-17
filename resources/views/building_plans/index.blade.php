@@ -48,7 +48,7 @@
 .f-panel{
      position: fixed;
 }
-.panel {
+/* .panel {
     
     background: white;
     padding: 15px;
@@ -58,7 +58,7 @@
     max-height: 90vh;
     overflow-y: auto;
     transition: all 0.3s ease;
-}
+} */
 
     .f-controls-panel {
         left: 20px;
@@ -72,7 +72,7 @@
         width: 320px;
     }
 
-    .panel-header {
+    /* .panel-header {
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 15px;
         padding-bottom: 10px;
@@ -127,7 +127,7 @@
     .tool-btn.danger.active {
         background-color: var(--danger-color);
         color: white;
-    }
+    } */
 
     .form-group {
         margin-bottom: 15px;
@@ -140,7 +140,7 @@
         color: var(--dark-color);
     }
 
-    .form-control {
+    /* .form-control {
         width: 100%;
         padding: 8px 12px;
         border: 1px solid var(--border-color);
@@ -223,7 +223,7 @@
         border-radius: 50%;
         margin-right: 5px;
         vertical-align: middle;
-    }
+    } */
 
     .status-sold {
         background-color: rgba(227, 52, 47, 0.7);

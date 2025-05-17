@@ -3,7 +3,7 @@
 @section('title', 'تخطيط المباني')
 @section('description', 'نظام إدارة وتخطيط المباني')
 
-@section('navbar')
+@push('head')
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.rtl.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -292,7 +292,7 @@
         }
     }
 </style>
-@stop
+@endpush
 
 @section('content')
 <div class="building-layout-container">
@@ -528,6 +528,7 @@ resizeCanvas();
                 top: building.coordinates.top,
                 width: building.coordinates.width,
                 height: building.coordinates.height,
+                angle: building.coordinates.angle || 0,
                 fill: color,
                 opacity: document.getElementById('opacity').value / 100,
                 selectable: true,

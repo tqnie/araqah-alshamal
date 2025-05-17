@@ -376,71 +376,71 @@
     <!-- رسالة الإشعارات -->
     <div class="toast" id="toast"></div>
 </div>
-     <div class="panel controls-panel" >
-        <div class="panel-header">
-             <h3>بيانات المبنى</h3>
+<div class="panel controls-panel" >
+    <div class="panel-header">
+            <h3>بيانات المبنى</h3>
+    </div>
+
+    <form id="buildingDataForm">
+        <div class="row">
+        <div class="form-group col-sm-4">
+            <label class="form-label">رقم القطعة:</label>
+            <input type="number" id="building_number" class="form-control" required /> 
         </div>
-       
-        <form id="buildingDataForm">
-            <div class="row">
-            <div class="form-group col-sm-4">
-                <label class="form-label">رقم القطعة:</label>
-                <input type="number" id="building_number" class="form-control" required /> 
-            </div>
-            
-            <div class="form-group col-sm-4">
-                <label class="form-label">رقم البلوك:</label>
-                <input type="number" id="block_number" class="form-control"   />
-            </div>
-            
-            <div class="form-group col-sm-4">
-                <label class="form-label">عرض الشارع:</label>
-                <input type="text" id="street_view" class="form-control" />
-            </div>
-            
-            <div class="form-group col-sm-4">
-                <label class="form-label">المساحة:</label>
-                <input type="text" id="area" class="form-control"   />
-            </div>
-            
-            <div class="form-group col-sm-4">
-                <label class="form-label">الاتجاه:</label>
-                <select id="direction" class="form-control"> 
-                    <option value=""></option>
-                    <option value="شرقي">شرقي</option>
-                    <option value="غربي">غربي</option>
-                    <option value="شمالي">شمالي</option>
-                    <option value="جنوبي">جنوبي</option>
-                    <option value="شرقي - جنوبي">شرقي - جنوبي</option>
-                    <option value="جنوبي - غربي">جنوبي - غربي</option>
-                    <option value="شرقي - شمالي">شرقي - شمالي</option>
-                    <option value="شمالي - غربي">شمالي - غربي</option>
-                    <option value="شرقي - جنوبي - شمالي">شرقي - جنوبي - شمالي</option>
-                </select>
-            </div>
-            
-            <div class="form-group col-sm-4">
-                <label class="form-label">نوع المبنى:</label>
-                <select id="type" class="form-control"  >
-                    <option value=""></option>
-                    <option value="تجاري">تجاري</option>
-                    <option value="سكني">سكني</option>
-                    <option value="مكتبي">مكتبي</option>
-                    <option value="فندقي">فندقي</option>
-                </select>
-            </div>
-            
-            <div class="form-group col-sm-4">
-                <label class="form-label">السعر:</label>
-                <input type="number" id="price" class="form-control">
-            </div>
-           
-            <div class="btn-group col-sm-4">
-                <button type="submit" class="btn btn-primary">حفظ البيانات</button>
-                <button type="reset" class="btn btn-secondary">مسح البيانات</button>
-            </div>
-        </form>
-     </div>
+        
+        <div class="form-group col-sm-4">
+            <label class="form-label">رقم البلوك:</label>
+            <input type="number" id="block_number" class="form-control"   />
+        </div>
+        
+        <div class="form-group col-sm-4">
+            <label class="form-label">عرض الشارع:</label>
+            <input type="text" id="street_view" class="form-control" />
+        </div>
+        
+        <div class="form-group col-sm-4">
+            <label class="form-label">المساحة:</label>
+            <input type="text" id="area" class="form-control"   />
+        </div>
+        
+        <div class="form-group col-sm-4">
+            <label class="form-label">الاتجاه:</label>
+            <select id="direction" class="form-control"> 
+                <option value=""></option>
+                <option value="شرقي">شرقي</option>
+                <option value="غربي">غربي</option>
+                <option value="شمالي">شمالي</option>
+                <option value="جنوبي">جنوبي</option>
+                <option value="شرقي - جنوبي">شرقي - جنوبي</option>
+                <option value="جنوبي - غربي">جنوبي - غربي</option>
+                <option value="شرقي - شمالي">شرقي - شمالي</option>
+                <option value="شمالي - غربي">شمالي - غربي</option>
+                <option value="شرقي - جنوبي - شمالي">شرقي - جنوبي - شمالي</option>
+            </select>
+        </div>
+        
+        <div class="form-group col-sm-4">
+            <label class="form-label">نوع المبنى:</label>
+            <select id="type" class="form-control"  >
+                <option value=""></option>
+                <option value="تجاري">تجاري</option>
+                <option value="سكني">سكني</option>
+                <option value="مكتبي">مكتبي</option>
+                <option value="فندقي">فندقي</option>
+            </select>
+        </div>
+        
+        <div class="form-group col-sm-4">
+            <label class="form-label">السعر:</label>
+            <input type="number" id="price" class="form-control">
+        </div>
+        
+        <div class="btn-group col-sm-4">
+            <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+            <button type="reset" class="btn btn-secondary">مسح البيانات</button>
+        </div>
+    </form>
+</div>
 
 @stop
 

@@ -11,7 +11,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
 <style>
-   
+    :root {
+        --primary-color: #3490dc;
+        --secondary-color: #38c172;
+        --danger-color: #e3342f;
+        --warning-color: #ffed4a;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --border-color: #dee2e6;
+    }
 
     .building-layout-container {
         position: relative;

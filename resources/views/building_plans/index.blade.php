@@ -373,10 +373,19 @@
         </div>
     </div>
 
-     
-        <h3>بيانات المبنى</h3>
+    <!-- زر تبديل نموذج المبنى -->
+    <div class="toggle-panel toggle-form" id="toggleForm">
+        <i class="icon icon-plus"></i>
+    </div>
+
+    <!-- نموذج المبنى -->
+    <div class="panel building-form" id="buildingForm">
+        <div class="panel-header">
+            <h3>بيانات المبنى</h3>
+            <button id="closeForm" class="btn btn-sm">×</button>
+        </div>
+
         <form id="buildingDataForm">
-            
             <div class="form-group">
                 <label class="form-label">رقم القطعة:</label>
                 <input type="number" id="building_number" class="form-control" required /> 
@@ -434,7 +443,7 @@
                 <button type="reset" class="btn btn-secondary">مسح البيانات</button>
             </div>
         </form>
-     
+    </div>
 
     <!-- رسالة الإشعارات -->
     <div class="toast" id="toast"></div>

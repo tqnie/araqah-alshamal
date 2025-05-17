@@ -45,19 +45,22 @@
 .active{
      display: block !important;
 }
-    .panel {
-        position: fixed;
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 100;
-        max-height: 90vh;
-        overflow-y: auto;
-        transition: all 0.3s ease;
-    }
+.f-panel{
+     position: fixed;
+}
+.panel {
+    
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 90vh;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
 
-    .controls-panel {
+    .f-controls-panel {
         left: 20px;
         top: 20px;
         width: 220px;
@@ -312,7 +315,7 @@
     </div>
 
     <!-- لوحة التحكم -->
-    <div class="panel controls-panel " id="controlsPanel">
+    <div class="f-panel panel f-controls-panel controls-panel " id="controlsPanel">
         <div class="panel-header">
             <h3>أدوات التحكم</h3>
             <button id="closeControls" class="btn btn-sm">×</button>
@@ -383,62 +386,62 @@
 
     <form id="buildingDataForm">
         <div class="row">
-        <div class="form-group col-sm-4">
-            <label class="form-label">رقم القطعة:</label>
-            <input type="number" id="building_number" class="form-control" required /> 
-        </div>
-        
-        <div class="form-group col-sm-4">
-            <label class="form-label">رقم البلوك:</label>
-            <input type="number" id="block_number" class="form-control"   />
-        </div>
-        
-        <div class="form-group col-sm-4">
-            <label class="form-label">عرض الشارع:</label>
-            <input type="text" id="street_view" class="form-control" />
-        </div>
-        
-        <div class="form-group col-sm-4">
-            <label class="form-label">المساحة:</label>
-            <input type="text" id="area" class="form-control"   />
-        </div>
-        
-        <div class="form-group col-sm-4">
-            <label class="form-label">الاتجاه:</label>
-            <select id="direction" class="form-control"> 
-                <option value=""></option>
-                <option value="شرقي">شرقي</option>
-                <option value="غربي">غربي</option>
-                <option value="شمالي">شمالي</option>
-                <option value="جنوبي">جنوبي</option>
-                <option value="شرقي - جنوبي">شرقي - جنوبي</option>
-                <option value="جنوبي - غربي">جنوبي - غربي</option>
-                <option value="شرقي - شمالي">شرقي - شمالي</option>
-                <option value="شمالي - غربي">شمالي - غربي</option>
-                <option value="شرقي - جنوبي - شمالي">شرقي - جنوبي - شمالي</option>
-            </select>
-        </div>
-        
-        <div class="form-group col-sm-4">
-            <label class="form-label">نوع المبنى:</label>
-            <select id="type" class="form-control"  >
-                <option value=""></option>
-                <option value="تجاري">تجاري</option>
-                <option value="سكني">سكني</option>
-                <option value="مكتبي">مكتبي</option>
-                <option value="فندقي">فندقي</option>
-            </select>
-        </div>
-        
-        <div class="form-group col-sm-4">
-            <label class="form-label">السعر:</label>
-            <input type="number" id="price" class="form-control">
-        </div>
-        
-        <div class="btn-group col-sm-4">
-            <button type="submit" class="btn btn-primary">حفظ البيانات</button>
-            <button type="reset" class="btn btn-secondary">مسح البيانات</button>
-        </div>
+            <div class="form-group col-sm-4">
+                <label class="form-label">رقم القطعة:</label>
+                <input type="number" id="building_number" class="form-control" required /> 
+            </div>
+            
+            <div class="form-group col-sm-4">
+                <label class="form-label">رقم البلوك:</label>
+                <input type="number" id="block_number" class="form-control"   />
+            </div>
+            
+            <div class="form-group col-sm-4">
+                <label class="form-label">عرض الشارع:</label>
+                <input type="text" id="street_view" class="form-control" />
+            </div>
+            
+            <div class="form-group col-sm-4">
+                <label class="form-label">المساحة:</label>
+                <input type="text" id="area" class="form-control"   />
+            </div>
+            
+            <div class="form-group col-sm-4">
+                <label class="form-label">الاتجاه:</label>
+                <select id="direction" class="form-control"> 
+                    <option value=""></option>
+                    <option value="شرقي">شرقي</option>
+                    <option value="غربي">غربي</option>
+                    <option value="شمالي">شمالي</option>
+                    <option value="جنوبي">جنوبي</option>
+                    <option value="شرقي - جنوبي">شرقي - جنوبي</option>
+                    <option value="جنوبي - غربي">جنوبي - غربي</option>
+                    <option value="شرقي - شمالي">شرقي - شمالي</option>
+                    <option value="شمالي - غربي">شمالي - غربي</option>
+                    <option value="شرقي - جنوبي - شمالي">شرقي - جنوبي - شمالي</option>
+                </select>
+            </div>
+            
+            <div class="form-group col-sm-4">
+                <label class="form-label">نوع المبنى:</label>
+                <select id="type" class="form-control"  >
+                    <option value=""></option>
+                    <option value="تجاري">تجاري</option>
+                    <option value="سكني">سكني</option>
+                    <option value="مكتبي">مكتبي</option>
+                    <option value="فندقي">فندقي</option>
+                </select>
+            </div>
+            
+            <div class="form-group col-sm-4">
+                <label class="form-label">السعر:</label>
+                <input type="number" id="price" class="form-control">
+            </div>
+            
+            <div class="btn-group col-sm-4">
+                <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                <button type="reset" class="btn btn-secondary">مسح البيانات</button>
+            </div>
         </div>
     </form>
 </div>

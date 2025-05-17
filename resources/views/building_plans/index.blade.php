@@ -376,27 +376,28 @@
      
         <h3>بيانات المبنى</h3>
         <form id="buildingDataForm">
-            <div class="form-group">
+            <div class="row">
+            <div class="form-group col-sm-4">
                 <label class="form-label">رقم القطعة:</label>
                 <input type="number" id="building_number" class="form-control" required /> 
             </div>
             
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 <label class="form-label">رقم البلوك:</label>
                 <input type="number" id="block_number" class="form-control"   />
             </div>
             
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 <label class="form-label">عرض الشارع:</label>
                 <input type="text" id="street_view" class="form-control" />
             </div>
             
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 <label class="form-label">المساحة:</label>
                 <input type="text" id="area" class="form-control"   />
             </div>
             
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 <label class="form-label">الاتجاه:</label>
                 <select id="direction" class="form-control"> 
                     <option value=""></option>
@@ -412,7 +413,7 @@
                 </select>
             </div>
             
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 <label class="form-label">نوع المبنى:</label>
                 <select id="type" class="form-control"  >
                     <option value=""></option>
@@ -423,17 +424,17 @@
                 </select>
             </div>
             
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 <label class="form-label">السعر:</label>
                 <input type="number" id="price" class="form-control">
             </div>
            
-            <div class="btn-group">
+            <div class="btn-group col-sm-4">
                 <button type="submit" class="btn btn-primary">حفظ البيانات</button>
                 <button type="reset" class="btn btn-secondary">مسح البيانات</button>
             </div>
         </form>
-     
+     </div>
 
     <!-- رسالة الإشعارات -->
     <div class="toast" id="toast"></div>

@@ -46,7 +46,10 @@
      display: block !important;
 }
 .f-panel{
-     position: fixed;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 220px;
 }
 /* .panel {
     
@@ -60,18 +63,9 @@
     transition: all 0.3s ease;
 } */
 
-    .f-controls-panel {
-        left: 20px;
-        top: 20px;
-        width: 220px;
-    }
+     
 
-    .building-form {
-        right: 20px;
-        top: 20px;
-        width: 320px;
-    }
-
+     
     /* .panel-header {
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 15px;
@@ -129,7 +123,7 @@
         color: white;
     } */
 
-    .form-group {
+    /* .form-group {
         margin-bottom: 15px;
     }
 
@@ -138,7 +132,7 @@
         margin-bottom: 5px;
         font-weight: 500;
         color: var(--dark-color);
-    }
+    } */
 
     /* .form-control {
         width: 100%;
@@ -315,7 +309,7 @@
     </div>
 
     <!-- لوحة التحكم -->
-    <div class="f-panel panel f-controls-panel controls-panel " id="controlsPanel">
+    <div class="f-panel panel  controls-panel " id="controlsPanel">
         <div class="panel-header">
             <h3>أدوات التحكم</h3>
             <button id="closeControls" class="btn btn-sm">×</button>

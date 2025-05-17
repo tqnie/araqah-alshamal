@@ -4,10 +4,19 @@
 @section('description', 'نظام إدارة وتخطيط المباني')
 
 @push('head')
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.rtl.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
 <style>
-  
+    :root {
+        --primary-color: #3490dc;
+        --secondary-color: #38c172;
+        --danger-color: #e3342f;
+        --warning-color: #ffed4a;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --border-color: #dee2e6;
+    }
 
     .building-layout-container {
         position: relative;
@@ -36,27 +45,30 @@
 .active{
      display: block !important;
 }
-.f-panel{
-    position: fixed;
-    left: 20px;
-    top: 20px;
-    width: 220px;
-}
-.panel {
-    
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    max-height: 90vh;
-    overflow-y: auto;
-    transition: all 0.3s ease;
-}
+    .panel {
+        position: fixed;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        max-height: 90vh;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
 
-     
+    .controls-panel {
+        left: 20px;
+        top: 20px;
+        width: 220px;
+    }
 
-     
+    .building-form {
+        right: 20px;
+        top: 20px;
+        width: 320px;
+    }
+
     .panel-header {
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 15px;
@@ -300,7 +312,7 @@
     </div>
 
     <!-- لوحة التحكم -->
-    <div class="f-panel panel  controls-panel " id="controlsPanel">
+    <div class="panel controls-panel " id="controlsPanel">
         <div class="panel-header">
             <h3>أدوات التحكم</h3>
             <button id="closeControls" class="btn btn-sm">×</button>
@@ -361,37 +373,31 @@
         </div>
     </div>
 
-    <!-- رسالة الإشعارات -->
-    <div class="toast" id="toast"></div>
-</div>
-<div class="panel controls-panel" >
-    <div class="panel-header">
-            <h3>بيانات المبنى</h3>
-    </div>
-
-    <form id="buildingDataForm">
-        <div class="row">
-            <div class="form-group col-sm-4">
+     
+        <h3>بيانات المبنى</h3>
+        <form id="buildingDataForm">
+            
+            <div class="form-group">
                 <label class="form-label">رقم القطعة:</label>
                 <input type="number" id="building_number" class="form-control" required /> 
             </div>
             
-            <div class="form-group col-sm-4">
+            <div class="form-group">
                 <label class="form-label">رقم البلوك:</label>
                 <input type="number" id="block_number" class="form-control"   />
             </div>
             
-            <div class="form-group col-sm-4">
+            <div class="form-group">
                 <label class="form-label">عرض الشارع:</label>
                 <input type="text" id="street_view" class="form-control" />
             </div>
             
-            <div class="form-group col-sm-4">
+            <div class="form-group">
                 <label class="form-label">المساحة:</label>
                 <input type="text" id="area" class="form-control"   />
             </div>
             
-            <div class="form-group col-sm-4">
+            <div class="form-group">
                 <label class="form-label">الاتجاه:</label>
                 <select id="direction" class="form-control"> 
                     <option value=""></option>
@@ -407,7 +413,7 @@
                 </select>
             </div>
             
-            <div class="form-group col-sm-4">
+            <div class="form-group">
                 <label class="form-label">نوع المبنى:</label>
                 <select id="type" class="form-control"  >
                     <option value=""></option>
@@ -418,19 +424,21 @@
                 </select>
             </div>
             
-            <div class="form-group col-sm-4">
+            <div class="form-group">
                 <label class="form-label">السعر:</label>
                 <input type="number" id="price" class="form-control">
             </div>
-            
-            <div class="btn-group col-sm-4">
+           
+            <div class="btn-group">
                 <button type="submit" class="btn btn-primary">حفظ البيانات</button>
                 <button type="reset" class="btn btn-secondary">مسح البيانات</button>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+     
 
+    <!-- رسالة الإشعارات -->
+    <div class="toast" id="toast"></div>
+</div>
 @stop
 
 @push('scripts')
